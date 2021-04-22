@@ -1,33 +1,34 @@
-#define _GLIBCXX_USE_CXX11_ABI 0
 #include <bits/stdc++.h>
 using namespace std;
 
 #include "steckerbrett.h"
+#include "rotor.h"
 
-string text, plugBoard, changed_text;
+string text, changed_text, plugboard1, plugboard2;
 char r1, r2, r3;
 
 int main(){
     while(true){
         text = "";
-        plugBoard = "ABCDEFGHIJKLM";
         changed_text = "";
 
         cout << "encryption(e)\tdecryption(d)\tend(q)\n\n";
 
-        steckerbrett sb;  
+        steckerbrett sb;
+        //rotor r;
 
         string option; cin >> option;
 
         if (option == "e" || option == "encryption"){
-
-            plugBoard = sb.input(plugBoard);
+            sb.input();
+            plugboard1 = sb.s;
+            plugboard2 = sb.s2;
             cout<<"\n";
 
             cout<<"text : ";
             cin>>text;
             cout<<"\n";
-            changed_text = sb.changed(text, plugBoard);
+            changed_text = sb.changed(text, plugboard1, plugboard2);
 
             do{
                 cout<<"***configure***\tROTOR 1 : ";
@@ -36,7 +37,12 @@ int main(){
                 cin>>r2;
                 cout<<"***configure***\tROTOR 3 : ";
                 cin>>r3;
+                cout<<"\n";
             }while((int)r1<65||(int)r1>90 || (int)r2<65||(int)r2>90 || (int)r3<65||(int)r3>90);
+
+            // changed_text = r.rotor1(r1, changed_text);
+            // changed_text = r.rotor2(r2, changed_text);
+            // changed_text = r.rotor3(r3, changed_text);
  
             cout<<changed_text<<endl;
             //encry_decry(text);
