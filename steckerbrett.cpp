@@ -3,7 +3,7 @@ using namespace std;
 
 #include "steckerbrett.h"
 
-string steckerbrett::s, steckerbrett::s2;
+string s, s2;
 
 void steckerbrett::input(){
     char c,c2;

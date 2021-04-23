@@ -9,4 +9,6 @@ add_executable(enigma_tic_cryption
         main.cpp
         steckerbrett.cpp
         steckerbrett.h
+        walzen.cpp
+        walzen.h
         workspace.code-workspace)

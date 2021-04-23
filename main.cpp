@@ -4,7 +4,7 @@ using namespace std;
 #include "steckerbrett.h"
 #include "walzen.h"
 
-string text, rotor_setter, plugboard1, plugboard2;
+string text, rotor_setter, plugboard1, plugboard2, rot1, rot2, rot3;
 char l1, l2, l3;
 int r1, r2, r3;
 
@@ -34,6 +34,8 @@ void rotorType(){
         cin>>r1>>r2>>r3;
         cout<<"\n";
     }while(r1<1||r1>6 || r2<1||r2>6 || r3<1||r3>6);
+    w.rotorChecker(r1, r2, r3);
+    rot1 = w.rotor1, rot2 = w.rotor2, rot3 = w.rotor3;
 }
 
 int main(){
@@ -52,9 +54,6 @@ int main(){
             cin>>rotor_setter;
             cout<<"\n";
             rotor_setter = sb.changed(rotor_setter, plugboard1, plugboard2);
-
-            //w.rotorSetter(rotor_setter, l1, l2, l3);
-            //l1 = w.r1, l2 = w.r2, l3 = w.r3;
         }
 
         else if (option == "d" || option == "decryption"){
