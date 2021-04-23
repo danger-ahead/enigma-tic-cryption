@@ -3,7 +3,8 @@ using namespace std;
 
 class walzen{
 public:
-    string rotor1(char rot1, string token);
-    string rotor2(char rot2, string token);
-    string rotor3(char rot3, string token);
+    static char r1, r2, r3;
+    
+    void rotorSetter(string token, char c1, char c2, char c3);
+    string rotors(char rot2, string token);
 };

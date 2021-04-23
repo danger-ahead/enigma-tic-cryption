@@ -2,56 +2,59 @@
 using namespace std;
 
 #include "steckerbrett.h"
-#include "rotor.h"
+#include "walzen.h"
 
-string text, changed_text, plugboard1, plugboard2;
-char r1, r2, r3, l1, l2, l3;
+string text, rotor_setter, plugboard1, plugboard2;
+char l1, l2, l3;
+int r1, r2, r3;
+
+steckerbrett sb;
+walzen w;
+
+void plugBoardConfig(){
+    //plugboard configurations
+    sb.input();
+    plugboard1 = sb.s, plugboard2 = sb.s2;
+    cout<<"\n";
+}
+
+void initialRotorPos(){
+    //initial rotor letter position
+    do{
+        cout<<"***ringstellung*** : ";
+        cin>>l1>>l2>>l3;
+        cout<<"\n";
+    }while((int)l1<65||(int)l1>90 || (int)l2<65||(int)l2>90 || (int)l3<65||(int)l3>90);
+}
+
+void rotorType(){
+    //type of rotor to be used
+    do{
+        cout<<"\n***walzenlage*** : ";
+        cin>>r1>>r2>>r3;
+        cout<<"\n";
+    }while(r1<1||r1>6 || r2<1||r2>6 || r3<1||r3>6);
+}
 
 int main(){
     while(true){
-        text = "";
-        changed_text = "";
-
         cout << "encryption(e)\tdecryption(d)\tend(q)\n\n";
-
-        steckerbrett sb;
-        //rotor r;
 
         string option; cin >> option;
 
         if (option == "e" || option == "encryption"){
-
-            //type of rotor to be used
-            do{
-                cout<<"***walzenlage*** : ";
-                cin>>r1>>r2>>r3;
-                cout<<"\n";
-            }while((int)r1<65||(int)r1>90 || (int)r2<65||(int)r2>90 || (int)r3<65||(int)r3>90);
-
-            //rotor letter position
-            do{
-                cout<<"***ringstellung*** : ";
-                cin>>l1>>l2>>l3;
-                cout<<"\n";
-            }while((int)r1<65||(int)r1>90 || (int)r2<65||(int)r2>90 || (int)r3<65||(int)r3>90);
-
-            sb.input();
-            plugboard1 = sb.s;
-            plugboard2 = sb.s2;
-            cout<<"\n";
-
+            rotorType();
+            initialRotorPos();
+            plugBoardConfig();
+            
             //rotor setter
             cout<<"***kenngruppen*** : ";
-            cin>>text;
+            cin>>rotor_setter;
             cout<<"\n";
-            changed_text = sb.changed(text, plugboard1, plugboard2);
+            rotor_setter = sb.changed(rotor_setter, plugboard1, plugboard2);
 
-            // changed_text = r.rotor1(r1, changed_text);
-            // changed_text = r.rotor2(r2, changed_text);
-            // changed_text = r.rotor3(r3, changed_text);
- 
-            cout<<changed_text<<endl;
-            //encry_decry(text);
+            //w.rotorSetter(rotor_setter, l1, l2, l3);
+            //l1 = w.r1, l2 = w.r2, l3 = w.r3;
         }
 
         else if (option == "d" || option == "decryption"){
