@@ -4,8 +4,8 @@ using namespace std;
 #include "steckerbrett.h"
 #include "walzen.h"
 
-string text, rotor_setter, plugboard1, plugboard2, rot1, rot2, rot3;
-char l1, l2, l3;
+string text, rotor_setter, plugboard1, plugboard2, rot1, rot2, rot3, encrypted;
+char letter1, letter2, letter3;
 int r1, r2, r3;
 
 steckerbrett sb;
@@ -16,15 +16,21 @@ void plugBoardConfig(){
     sb.input();
     plugboard1 = sb.s, plugboard2 = sb.s2;
     cout<<"\n";
+
+    //rotor setter
+    cout<<"***kenngruppen*** : ";
+    cin>>rotor_setter;
+    cout<<"\n";
+    rotor_setter = sb.changed(rotor_setter, plugboard1, plugboard2);
 }
 
 void initialRotorPos(){
     //initial rotor letter position
     do{
         cout<<"***ringstellung*** : ";
-        cin>>l1>>l2>>l3;
+        cin>>letter1>>letter2>>letter3;
         cout<<"\n";
-    }while((int)l1<65||(int)l1>90 || (int)l2<65||(int)l2>90 || (int)l3<65||(int)l3>90);
+    }while((int)letter1<65||(int)letter1>90 || (int)letter2<65||(int)letter2>90 || (int)letter3<65||(int)letter3>90);
 }
 
 void rotorType(){
@@ -49,11 +55,8 @@ int main(){
             initialRotorPos();
             plugBoardConfig();
             
-            //rotor setter
-            cout<<"***kenngruppen*** : ";
-            cin>>rotor_setter;
-            cout<<"\n";
-            rotor_setter = sb.changed(rotor_setter, plugboard1, plugboard2);
+            encrypted = w.rotorSetter(rotor_setter, letter1, letter2, letter3);
+            cout<<encrypted<<endl;
         }
 
         else if (option == "d" || option == "decryption"){

@@ -3,10 +3,11 @@ using namespace std;
 
 #include "walzen.h"
 
-char walzen::r1, walzen::r2, walzen::r3;
+//char r1, r2, r3;
 
 string rotorI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ", rotorII = "AJDKSIRUXBLHWTMCQGZNPYFVOE", rotorIII = "BDFHJLCPRTXVZNYEIWGAKMUSQO",
 rotorIV = "	ESOVPZJAYQUIRHXLNFTGKDCMWB", rotorV = "VZBRGITYUPSDNHLXAWMJQOFECK", rotorVI = "	JPGVOUMFYQBENHZRDKASXLICTW";
+string original = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 string rotor1, rotor2, rotor3;
 
@@ -33,6 +34,14 @@ void walzen::rotorChecker(int a, int b, int c){
     else if(c == 6) rotor3 = rotorVI;
 }
 
-void walzen::rotorSetter(string s, char a, char b, char c){
-    
+string walzen::rotorSetter(string s, char a, char b, char c){
+    int index1 = original.find(a);
+
+    int j = index1;
+    for(int i = 0; i < s.size(); i++){
+        s[i] = rotor3[j];
+        j = j + 1;
+        if(j == 26) j = 0;
+    }
+    return s;
 }
