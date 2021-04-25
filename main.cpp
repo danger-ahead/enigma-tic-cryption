@@ -4,7 +4,7 @@ using namespace std;
 #include "steckerbrett.h"
 #include "walzen.h"
 
-string text, rotor_setter, plugboard1, plugboard2, rot1, rot2, rot3, encrypted;
+string text, rotor_setter, rot1, rot2, rot3, encrypted;
 char letter1, letter2, letter3;
 int r1, r2, r3;
 
@@ -14,14 +14,13 @@ walzen w;
 void plugBoardConfig(){
     //plugboard configurations
     sb.input();
-    plugboard1 = sb.s, plugboard2 = sb.s2;
     cout<<"\n";
 
     //rotor setter
     cout<<"***kenngruppen*** : ";
     cin>>rotor_setter;
     cout<<"\n";
-    rotor_setter = sb.changed(rotor_setter, plugboard1, plugboard2);
+    rotor_setter = sb.changed(rotor_setter);
 }
 
 void initialRotorPos(){
@@ -70,5 +69,7 @@ int main(){
         else{
             cout<<"***input error***\n";
         }
+        sb.s = "";
+        sb.s2 = "";
     }
 }

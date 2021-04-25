@@ -15,7 +15,7 @@ void steckerbrett::input(){
     }
 }
 
-string steckerbrett::changed(string check, string s, string s2){
+string steckerbrett::changed(string check){
 
     transform(check.begin(), check.end(), check.begin(), ::toupper);
 
