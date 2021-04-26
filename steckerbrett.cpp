@@ -7,7 +7,7 @@ string s, s2;
 
 void steckerbrett::input(){
     char c,c2;
-    cout<<"***steckerverbindungen***\n";
+    cout<<"***plugboard configurations(20 letters has to be swapped) :***\n";
     for(int i = 0; i < 10; i++){
         cin>>c>>c2;
         s = s + (char)toupper(c);
