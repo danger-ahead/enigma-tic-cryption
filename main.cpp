@@ -17,11 +17,16 @@ void plugBoardConfig(){
     cout<<"\n";
 
     //rotor setter and reflector type
-    cout<<"***reflector(A or B) : *** : ";
-    cin>>reflector;
-    cout<<"\n";
+    do{
+        cout<<"***reflector(A or B) : *** : ";
+        cin>>reflector;
+        reflector = toupper(reflector);
+        cout<<"\n";
+    }while((int)reflector<65||(int)reflector>66);
+    
     cout<<"***text : *** : ";
     cin>>encrypted;    //text to be encrypted
+    transform(encrypted.begin(), encrypted.end(), encrypted.begin(), ::toupper);
     cout<<"\n";
     encrypted = sb.changed(encrypted);
 }
@@ -31,6 +36,7 @@ void initialRotorPos(){
     do{
         cout<<"***letters for initialising rotors(A-Z) : _ _ _ *** : ";
         cin>>letter1>>letter2>>letter3;
+        letter1 = toupper(letter1), letter2 = toupper(letter2), letter3 = toupper(letter3);
         cout<<"\n";
     }while((int)letter1<65||(int)letter1>90 || (int)letter2<65||(int)letter2>90 || (int)letter3<65||(int)letter3>90);
     //ensures all characters are upper-case characters
@@ -48,7 +54,7 @@ void rotorType(){
 
 void encryption(){
     encrypted = w.rotorEncryption(encrypted, letter1, letter2, letter3, reflector);
-    cout<<encrypted<<endl;
+    cout<<encrypted<<endl<<endl;
 }
 
 int main(){
@@ -62,7 +68,6 @@ int main(){
             initialRotorPos();
             plugBoardConfig();
             encryption();
-
         }
 
         else if (option == "d" || option == "decryption" || option == "D"){
