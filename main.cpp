@@ -5,7 +5,7 @@ using namespace std;
 #include "walzen.h"
 
 string encrypted;
-char letter1, letter2, letter3;
+char letter1, letter2, letter3, reflector;
 int r1, r2, r3;
 
 steckerbrett sb;
@@ -16,7 +16,10 @@ void plugBoardConfig(){
     sb.input();     //inputs swapped letters in plugboard
     cout<<"\n";
 
-    //rotor setter
+    //rotor setter and reflector type
+    cout<<"***reflector(A or B) : *** : ";
+    cin>>reflector;
+    cout<<"\n";
     cout<<"***text : *** : ";
     cin>>encrypted;    //text to be encrypted
     cout<<"\n";
@@ -43,6 +46,11 @@ void rotorType(){
     w.rotorChecker(r1, r2, r3);
 }
 
+void encryption(){
+    encrypted = w.rotorEncryption(encrypted, letter1, letter2, letter3, reflector);
+    cout<<encrypted<<endl;
+}
+
 int main(){
     while(true){
         cout << "encryption(e)\tdecryption(d)\tend(q) : ";
@@ -53,9 +61,8 @@ int main(){
             rotorType();
             initialRotorPos();
             plugBoardConfig();
-            
-            encrypted = w.rotorEncryption(encrypted, letter1, letter2, letter3);
-            cout<<encrypted<<endl;
+            encryption();
+
         }
 
         else if (option == "d" || option == "decryption" || option == "D"){

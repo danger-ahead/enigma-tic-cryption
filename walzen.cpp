@@ -5,8 +5,10 @@ using namespace std;
 
 //original German Rotor windings
 string rotorI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ", rotorII = "AJDKSIRUXBLHWTMCQGZNPYFVOE", rotorIII = "BDFHJLCPRTXVZNYEIWGAKMUSQO",
-rotorIV = "	ESOVPZJAYQUIRHXLNFTGKDCMWB", rotorV = "VZBRGITYUPSDNHLXAWMJQOFECK", rotorVI = "	JPGVOUMFYQBENHZRDKASXLICTW";
+rotorIV = "ESOVPZJAYQUIRHXLNFTGKDCMWB", rotorV = "VZBRGITYUPSDNHLXAWMJQOFECK", rotorVI = "JPGVOUMFYQBENHZRDKASXLICTW";
 string original = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+string reflectorA = "EJMZALYXVBWFCRQUONTSPIKHGD", reflectorB = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
 
 //variables for storing the 3 rotor types
 string rotor1, rotor2, rotor3;
@@ -34,8 +36,7 @@ void walzen::rotorChecker(int a, int b, int c){
     else if(c == 6) rotor3 = rotorVI;
 }
 
-string walzen::rotorEncryption(string s, char a, char b, char c){
-
+string walzen::rotr3(string s, char c){
     int balance3 = (int)(c - 'A');      //check the lead of the initialised rotor letter from the 1st letter (A)
     for(int i = 0; i < s.size(); i++){
         if (s[i] == 'A') s[i] = rotor3[(0 + balance3) % 26];
@@ -67,7 +68,10 @@ string walzen::rotorEncryption(string s, char a, char b, char c){
 
         balance3 = balance3 + 1;
     }
+    return s;
+}
 
+string walzen::rotr2(string s, char b){
     int balance2 = (int)(b - 'A');
     for(int i = 0; i < s.size(); i++){
         if (s[i] == 'A') s[i] = rotor2[(0 + balance2) % 26];
@@ -99,7 +103,10 @@ string walzen::rotorEncryption(string s, char a, char b, char c){
 
         if(i > 0 && i % 26 == 26 - 1) balance2 = balance2 + 1;
     }
+    return s;
+}
 
+string walzen::rotr1(string s, char a){
     int balance1 = (int)(a - 'A');
     for(int i = 0; i < s.size(); i++){
         if (s[i] == 'A') s[i] = rotor1[(0 + balance1) % 26];
@@ -131,6 +138,30 @@ string walzen::rotorEncryption(string s, char a, char b, char c){
 
         if(i > 0 && i % (26 * 26) == 26 * 26 - 1) balance1 = balance1 + 1;
     }
+    return s;
+}
+
+string walzen::reflected(string s, char reflector){
+    if (reflector == 'A'){
+        for(int i = 0; i < s.size(); i++){
+            s[i] = reflectorA[i%26];
+        }
+    }
+    else if(reflector == 'B'){
+        for(int i = 0; i < s.size(); i++){
+            s[i] = reflectorB[i%26];
+        }
+    }
+    return s;
+}
+
+string walzen::rotorEncryption(string s, char a, char b, char c, char reflector){
+
+    s = rotr3(s, c);
+    s = rotr2(s, b);
+    s = rotr1(s, a);
+    s = reflected(s, reflector);
+
     return s;
 }
 
