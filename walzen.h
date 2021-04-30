@@ -13,4 +13,5 @@ public:
     string rotr2(string s, char b);
     string rotr1(string s, char a);
     string reflected(string s, char reflector);
+    string returnThruRotrs(string s);
 };

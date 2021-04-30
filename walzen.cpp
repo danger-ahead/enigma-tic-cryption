@@ -8,6 +8,8 @@ string rotorI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ", rotorII = "AJDKSIRUXBLHWTMCQGZNPYF
 rotorIV = "ESOVPZJAYQUIRHXLNFTGKDCMWB", rotorV = "VZBRGITYUPSDNHLXAWMJQOFECK", rotorVI = "JPGVOUMFYQBENHZRDKASXLICTW";
 string original = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+int balance1, balance2, balance3;
+
 string reflectorA = "EJMZALYXVBWFCRQUONTSPIKHGD", reflectorB = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
 
 //variables for storing the 3 rotor types
@@ -37,7 +39,8 @@ void walzen::rotorChecker(int a, int b, int c){
 }
 
 string walzen::rotr3(string s, char c){
-    int balance3 = (int)(c - 'A'), character;      //check the lead of the initialised rotor letter from the 1st letter (A)
+    balance3 = (int)(c - 'A');      //check the lead of the initialised rotor letter from the 1st letter (A)
+    int character;
     for(int i = 0; i < s.size(); i++){
         character = (int)(s[i] - 'A');
         s[i] = rotor3[(character + balance3) % 26];
@@ -48,7 +51,8 @@ string walzen::rotr3(string s, char c){
 }
 
 string walzen::rotr2(string s, char b){
-    int balance2 = (int)(b - 'A'), character;
+    balance2 = (int)(b - 'A');
+    int character;
     for(int i = 0; i < s.size(); i++){
         character = (int)(s[i] - 'A');
         s[i] = rotor2[(character + balance2) % 26];
@@ -59,7 +63,8 @@ string walzen::rotr2(string s, char b){
 }
 
 string walzen::rotr1(string s, char a){
-    int balance1 = (int)(a - 'A'), character;
+    int balance1 = (int)(a - 'A');
+    int character;
     for(int i = 0; i < s.size(); i++){
         character = (int)(s[i] - 'A');
         s[i] = rotor1[(character + balance1) % 26];
@@ -86,12 +91,53 @@ string walzen::reflected(string s, char reflector){
     return s;
 }
 
+string walzen::returnThruRotrs(string s){
+    int intindex;
+    size_t index;
+
+    for(int i = s.size() - 1; i >= 0; i--){
+        index = rotor1.find(s[i]);
+        if (index > INT_MAX){
+            throw overflow_error("larger than INT_MAX");
+        }
+        intindex = static_cast<int>(index);
+        s[i] = original[(intindex + balance1) % 26];
+
+        if(i > 0 && i % (26 * 26) == 26 * 26 - 1) balance1 = balance1 - 1;
+    }
+
+    for(int i = s.size() - 1; i >= 0; i--){
+        index = rotor2.find(s[i]);
+        if (index > INT_MAX){
+            throw overflow_error("larger than INT_MAX");
+        }
+        intindex = static_cast<int>(index);
+        s[i] = original[(intindex + balance2) % 26];
+
+        if(i > 0 && i % 26 == 26 - 1) balance2 = balance2 - 1;
+    }
+
+    for(int i = s.size() - 1; i >= 0; i--){
+        index = rotor3.find(s[i]);
+        if (index > INT_MAX){
+            throw overflow_error("larger than INT_MAX");
+        }
+        intindex = static_cast<int>(index);
+        s[i] = original[(intindex + balance3) % 26];
+
+        balance3 = balance3 - 1;
+    }
+
+    return s;
+}
+
 string walzen::rotorEncryption(string s, char a, char b, char c, char reflector){
 
     s = rotr3(s, c);
     s = rotr2(s, b);
     s = rotr1(s, a);
     s = reflected(s, reflector);
+    s = returnThruRotrs(s);
 
     return s;
 }

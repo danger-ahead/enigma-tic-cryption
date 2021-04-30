@@ -54,6 +54,7 @@ void rotorType(){
 
 void encryption(){
     encrypted = w.rotorEncryption(encrypted, letter1, letter2, letter3, reflector);
+    encrypted = sb.changed(encrypted);
     cout<<encrypted<<endl<<endl;
 }
 
