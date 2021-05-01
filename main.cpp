@@ -4,7 +4,7 @@ using namespace std;
 #include "steckerbrett.h"
 #include "walzen.h"
 
-string encrypted;
+string text;
 char letter1, letter2, letter3, reflector;
 int r1, r2, r3;
 
@@ -25,10 +25,10 @@ void plugBoardConfig(){
     }while((int)reflector<65||(int)reflector>66);
     
     cout<<"***text : *** : ";
-    cin>>encrypted;    //text to be encrypted
-    transform(encrypted.begin(), encrypted.end(), encrypted.begin(), ::toupper);
+    cin>>text;    //text to be text
+    transform(text.begin(), text.end(), text.begin(), ::toupper);
     cout<<"\n";
-    encrypted = sb.changed(encrypted);
+    text = sb.changed(text);
 }
 
 void initialRotorPos(){
@@ -53,9 +53,15 @@ void rotorType(){
 }
 
 void encryption(){
-    encrypted = w.rotorEncryption(encrypted, letter1, letter2, letter3, reflector);
-    encrypted = sb.changed(encrypted);
-    cout<<encrypted<<endl<<endl;
+    text = w.rotorEncryption(text, letter1, letter2, letter3, reflector);
+    text = sb.changed(text);
+    cout<<text<<endl<<endl;
+}
+
+void decryption(){
+    text = w.rotorDecryption(text, letter1, letter2, letter3, reflector);
+    text = sb.changed(text);
+    cout<<text<<endl<<endl;
 }
 
 int main(){
@@ -72,7 +78,11 @@ int main(){
         }
 
         else if (option == "d" || option == "decryption" || option == "D"){
-        
+            rotorType();
+            initialRotorPos();
+            plugBoardConfig();
+
+            decryption();
         }
 
         else if (option == "q" || option == "end" || option == "Q"){
@@ -84,6 +94,6 @@ int main(){
         }
         sb.s = "", sb.s2 = "";
         w.rotor1 = "", w.rotor2 = "", w.rotor3 = "";
-        encrypted = "";
+        text = "";
     }
 }

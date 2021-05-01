@@ -133,7 +133,7 @@ string walzen::returnThruRotrs(string s){
 
 string walzen::rotorEncryption(string s, char a, char b, char c, char reflector){
 
-    s = rotr3(s, c);
+    s = rotr3(s, c);    cout<<s<<" ";
     s = rotr2(s, b);
     s = rotr1(s, a);
     s = reflected(s, reflector);
@@ -142,6 +142,58 @@ string walzen::rotorEncryption(string s, char a, char b, char c, char reflector)
     return s;
 }
 
-string walzen::rotorDecryption(string s, char a, char b, char c){
+string walzen::decryEntry(string s, char a, char b, char c){
+    balance3 = s.size() + (int)(c - 'A');
+    balance2 = balance3 % 26 + (int)(b - 'A');
+    balance1 = balance3 % (26 * 26) + (int)(a - 'A');
+
+    int character;
+
+    // size_t index;
+    // int intindex;
+
+    // for(int i = s.size() - 1; i >= 0; i--){
+    //     index = rotor3.find(s[i]);
+    //     if (index > INT_MAX){
+    //         throw overflow_error("larger than INT_MAX");
+    //     }
+    //     intindex = static_cast<int>(index);
+    //     s[i] = original[(intindex + balance3) % 26];
+
+    //     balance3 = balance3 - 1;
+
+    //     index = rotor2.find(s[i]);
+    //     if (index > INT_MAX){
+    //         throw overflow_error("larger than INT_MAX");
+    //     }
+    //     intindex = static_cast<int>(index);
+    //     s[i] = original[(intindex + balance3) % 26];
+
+    //     balance3 = balance3 - 1;
+    // }
+
+    for(int i = s.size() - 1; i >= 0; i--){
+        character = (int)(s[i] - 'A');
+        s[i] = rotor3[(character + balance3) % 26];
+        cout<<s<<" ";
+
+        balance3 = balance3 - 1;
+
+        character = (int)(s[i] - 'A');
+        s[i] = rotor2[(character + balance2) % 26];
+
+        if(i > 0 && i % 26 == 26 - 1) balance2 = balance2 - 1;
+
+        character = (int)(s[i] - 'A');
+        s[i] = rotor1[(character + balance1) % 26];
+
+        if(i > 0 && i % (26 * 26) == 26 * 26 - 1) balance1 = balance1 - 1;
+    }
+    return s;
+}
+
+string walzen::rotorDecryption(string s, char a, char b, char c, char reflector){
+    s = decryEntry(s, a, b, c);
+
     return s;
 }
