@@ -163,9 +163,9 @@ string walzen::decryEntry(string s, char a, char b, char c){
     //     balance3 = balance3 - 1;
 
     //     index = rotor2.find(s[i]);
-    //     if (index > INT_MAX){
+    //     if (index > INT_MAX)
     //         throw overflow_error("larger than INT_MAX");
-    //     }
+    
     //     intindex = static_cast<int>(index);
     //     s[i] = original[(intindex + balance3) % 26];
 
